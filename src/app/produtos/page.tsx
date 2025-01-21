@@ -7,12 +7,7 @@ import { useEffect, useState } from "react";
 import Loading from "../loading";
 import { ProductData } from "../api/products/route";
 
-interface ProductsProps {
-  viewMode: "promotions" | "all";
-  enableSearch?: boolean;
-}
-
-const ProductsList: React.FC<ProductsProps> = ({ viewMode, enableSearch = false }) => {
+const ProductsList = () => {
   const [products, setProducts] = useState<ProductData[]>([]);
   const [isLoading, setLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -22,7 +17,7 @@ const ProductsList: React.FC<ProductsProps> = ({ viewMode, enableSearch = false 
       try {
         const response = await axios.get<ProductData[]>("/api/products");
         const productList = response.data;
-
+/* 
         const filteredProducts =
           viewMode === "promotions"
             ? productList.filter((product) => {
@@ -32,9 +27,9 @@ const ProductsList: React.FC<ProductsProps> = ({ viewMode, enableSearch = false 
               const promotionEndDate = new Date(product.promotionEndDate);
               return !isNaN(promotionEndDate.getTime()) && promotionEndDate > new Date();
             })
-            : productList;
+            : productList; */
 
-        setProducts(filteredProducts);
+        setProducts(productList);
         setLoading(false);
       } catch (error: unknown) {
         console.error("Erro ao buscar produtos:", error);
@@ -43,7 +38,7 @@ const ProductsList: React.FC<ProductsProps> = ({ viewMode, enableSearch = false 
     };
 
     fetchProducts();
-  }, [viewMode]);
+  }, []);
 
   const filteredProducts = products.filter((product) => {
     if (!searchTerm.trim()) return true;
@@ -53,8 +48,8 @@ const ProductsList: React.FC<ProductsProps> = ({ viewMode, enableSearch = false 
       product.category?.toLowerCase().includes(lowerSearch) ||
       product.tags?.some((tag) => tag.toLowerCase().includes(lowerSearch)) ||
       product.description.toLowerCase().includes(lowerSearch) ||
-      product.brand?.toLowerCase().includes(lowerSearch) ||
-      (viewMode === "promotions" && lowerSearch.includes("promoção"))
+      product.brand?.toLowerCase().includes(lowerSearch) /* ||
+      (viewMode === "promotions" && lowerSearch.includes("promoção")) */
     );
   });
 
@@ -64,7 +59,7 @@ const ProductsList: React.FC<ProductsProps> = ({ viewMode, enableSearch = false 
         <Loading />
       ) : (
         <div className="w-full p-4">
-          <div className={`mb-2 px-4 ${!enableSearch && "hidden"}`}>
+{/*           <div className={`mb-2 px-4 ${!enableSearch && "hidden"}`}>
             <input
               type="text"
               placeholder="Buscar produtos..."
@@ -72,7 +67,7 @@ const ProductsList: React.FC<ProductsProps> = ({ viewMode, enableSearch = false 
               onChange={(e) => setSearchTerm(e.target.value)}
               className="p-2 border border-gray-300 rounded-lg w-full"
             />
-          </div>
+          </div> */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
             {filteredProducts.length > 0 ? (
               filteredProducts.map((product) => {
