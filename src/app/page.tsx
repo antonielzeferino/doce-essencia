@@ -2,7 +2,7 @@ import Link from "next/link";
 
 function Home() {
   return (
-    <div>
+    <div className="p-4">
       <main>
         <h1>
           pagina inicial

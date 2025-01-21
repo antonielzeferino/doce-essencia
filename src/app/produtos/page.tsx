@@ -63,7 +63,7 @@ const ProductsList: React.FC<ProductsProps> = ({ viewMode, enableSearch = false 
       {isLoading ? (
         <Loading />
       ) : (
-        <div className="w-full">
+        <div className="w-full p-4">
           <div className={`mb-2 px-4 ${!enableSearch && "hidden"}`}>
             <input
               type="text"
