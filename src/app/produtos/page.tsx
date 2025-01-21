@@ -10,7 +10,6 @@ import { ProductData } from "../api/products/route";
 const ProductsList = () => {
   const [products, setProducts] = useState<ProductData[]>([]);
   const [isLoading, setLoading] = useState<boolean>(true);
-  const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -40,7 +39,7 @@ const ProductsList = () => {
     fetchProducts();
   }, []);
 
-  const filteredProducts = products.filter((product) => {
+/*   const filteredProducts = products.filter((product) => {
     if (!searchTerm.trim()) return true;
     const lowerSearch = searchTerm.toLowerCase();
     return (
@@ -48,10 +47,10 @@ const ProductsList = () => {
       product.category?.toLowerCase().includes(lowerSearch) ||
       product.tags?.some((tag) => tag.toLowerCase().includes(lowerSearch)) ||
       product.description.toLowerCase().includes(lowerSearch) ||
-      product.brand?.toLowerCase().includes(lowerSearch) /* ||
-      (viewMode === "promotions" && lowerSearch.includes("promoção")) */
+      product.brand?.toLowerCase().includes(lowerSearch)  ||
+      (viewMode === "promotions" && lowerSearch.includes("promoção")) 
     );
-  });
+  }); */
 
   return (
     <>
