@@ -3,12 +3,14 @@ import Link from "next/link";
 
 function Products() {
   return (
-    <div className="flex flex-col items-center py-6 px-4 bg-gray-50 min-h-screen">
-      <div className="w-full max-w-4xl">
+    <div
+      className="bg-cover bg-center flex flex-col items-center py-8 px-1 md:px-4"
+    >
+      <div className="w-full max-w-7xl min-[1280px]:shadow-lg min-[1280px]:rounded-lg  px-1 md:p-6">
         {/* Botão de voltar */}
         <Link
           href="/"
-          className="text-indigo-600 font-semibold hover:text-indigo-800 transition-colors mb-6 inline-flex items-center gap-1"
+          className="text-pink-600 font-semibold hover:text-pink-800 transition-colors mb-6 inline-flex items-center gap-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +18,7 @@ function Products() {
             viewBox="0 0 24 24"
             strokeWidth={2}
             stroke="currentColor"
-            className="w-4 h-4"
+            className="w-5 h-5"
           >
             <path
               strokeLinecap="round"
@@ -29,25 +31,25 @@ function Products() {
 
         {/* Seções de produtos */}
         <section className="mb-8">
-          <h4 className="text-lg font-bold text-gray-800 mb-4">
+          <h4 className="text-xl font-serif text-pink-600 mb-4">
             Todos os produtos
           </h4>
           <ProductsList />
         </section>
 
-        <hr className="border-gray-300 my-6" />
+        <hr className="border-pink-300 my-6" />
 
         <section className="mb-8">
-          <h4 className="text-lg font-bold text-gray-800 mb-4">
+          <h4 className="text-xl font-serif text-pink-600 mb-4">
             Promoções Especiais
           </h4>
           <ProductsList />
         </section>
 
-        <hr className="border-gray-300 my-6" />
+        <hr className="border-pink-300 my-6" />
 
         <section className="mb-8">
-          <h4 className="text-lg font-bold text-gray-800 mb-4">
+          <h4 className="text-xl font-serif text-pink-600 mb-4">
             Novidades
           </h4>
           <ProductsList />

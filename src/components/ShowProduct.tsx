@@ -37,10 +37,10 @@ const ShowProduct = ({ id }: { id: string }) => {
     (price - (price * discountPercentage) / 100).toFixed(2);
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
-      <main className="w-full max-w-5xl bg-white rounded-lg shadow-lg overflow-hidden flex flex-col md:flex-row">
-        {/* Imagem */}
-        <div className="w-full h-[80vh]">
+    <div className="flex flex-col items-center px-4 sm:px-6 md:px-8">
+      <main className="w-full max-w-3xl flex flex-col md:flex-row">
+        {/* Imagem do produto */}
+        <div className="w-full md:w-1/2">
           <Image
             src={
               imageUrl ||
@@ -49,66 +49,41 @@ const ShowProduct = ({ id }: { id: string }) => {
             alt={name}
             width={700}
             height={500}
-            className="w-full h-full object-cover"
+            className="w-full h-auto object-cover rounded-md"
           />
         </div>
 
-        {/* Detalhes do Produto */}
-        <div className="flex-1 p-8 flex flex-col justify-center space-y-6">
-          <h1 className="text-4xl md:text-5xl font-bold text-blue-600 leading-tight">
-            {name}
-          </h1>
-          <div className="space-y-2">
-            {discountPercentage ? (
-              <div>
-                <p className="text-2xl font-bold text-gray-500 line-through">
-                  {price.toFixed(2)} R$
-                </p>
-                <p className="text-3xl font-extrabold text-green-500">
-                  {discountPrice} R$
-                </p>
-                <p className="text-sm text-pink-500">
-                  Desconto de {discountPercentage}%{" "}
-                  {promotionEndDate && `até ${promotionEndDate}`}
-                </p>
-              </div>
-            ) : (
-              <p className="text-4xl font-extrabold text-gray-700">
+        {/* Informações do Produto */}
+        <div className="text-center md:text-left mt-4 md:mt-0 md:pl-6">
+          <h1 className="text-xl sm:text-2xl font-medium text-gray-800 mb-2">{name}</h1>
+          {discountPercentage ? (
+            <div>
+              <p className="text-sm text-gray-500 line-through">
                 {price.toFixed(2)} R$
               </p>
-            )}
-          </div>
-
+              <p className="text-xl sm:text-2xl font-bold text-red-500">
+                {discountPrice} R$
+              </p>
+              <p className="text-xs text-gray-600">
+                Desconto de {discountPercentage}% {promotionEndDate && `até ${promotionEndDate}`}
+              </p>
+            </div>
+          ) : (
+            <p className="text-xl sm:text-2xl font-bold text-green-600">
+              {price.toFixed(2)} R$
+            </p>
+          )}
           {/* Botão de Favoritar */}
-          <button className="w-full md:w-auto bg-red-500 text-white px-6 py-3 rounded-lg text-xl font-semibold hover:bg-red-600 transition">
-            ❤️ Favoritar
+          <button className="border border-gray-300 px-3 py-1 rounded-md mt-3 text-sm hover:bg-gray-100 transition">
+            Favoritar
           </button>
         </div>
       </main>
 
-      {/* Descrição */}
-      <div className="w-full max-w-5xl bg-white rounded-lg shadow-lg mt-6 p-6">
-        <h2 className="text-2xl font-bold text-gray-700 mb-4">Descrição</h2>
-        <p className="text-gray-600 text-lg leading-relaxed">{description}</p>
-      </div>
-
-      {/* Produtos Semelhantes */}
-      <div className="w-full max-w-5xl bg-gray-50 rounded-lg shadow-lg mt-6 p-6">
-        <h2 className="text-2xl font-bold text-gray-700 mb-4">
-          Produtos Semelhantes
-        </h2>
-        <div className="flex flex-wrap gap-4">
-          {/* Espaço para renderizar os produtos semelhantes */}
-          <div className="bg-gray-200 rounded-lg p-4 w-1/3">
-            Produto 1 (Placeholder)
-          </div>
-          <div className="bg-gray-200 rounded-lg p-4 w-1/3">
-            Produto 2 (Placeholder)
-          </div>
-          <div className="bg-gray-200 rounded-lg p-4 w-1/3">
-            Produto 3 (Placeholder)
-          </div>
-        </div>
+      {/* Descrição do Produto */}
+      <div className="mt-6 w-full max-w-3xl">
+        <h2 className="text-lg font-semibold text-gray-700 mb-2">Descrição</h2>
+        <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
       </div>
     </div>
   );
