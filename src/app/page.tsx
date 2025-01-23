@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import homeBg from "../../public/images/mobile-bg.png";
-import desktopBg from "../../public/images/desktop-bg.png";
+import homeBg from "/public/images/mobile-bg.png";
+import desktopBg from "/public/images/desktop-bg.png";
 
 function Home() {
   const [backgroundImage, setBackgroundImage] = useState(homeBg);

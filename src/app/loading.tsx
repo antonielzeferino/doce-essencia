@@ -1,6 +1,6 @@
 function Loading() {
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center h-2/3">
       <div className="text-center">
         <div className="w-16 h-16 border-4 border-purple-100 border-t-purple-700 rounded-full animate-spin mx-auto"></div>
       </div>
