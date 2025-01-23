@@ -31,7 +31,7 @@ const ProductsList = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <div className="flex overflow-x-auto gap-4">
+        <div className="flex overflow-x-auto gap-4 p-4">
           {products.length > 0 ? (
             products.map((product) => {
               const { id, name, description, price, discountPercentage, imageUrl } = product;
