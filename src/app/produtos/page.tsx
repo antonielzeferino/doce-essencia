@@ -34,25 +34,25 @@ function Products() {
           <h4 className="text-xl font-serif text-pink-600 mb-4">
             Todos os produtos
           </h4>
-          <ProductsList />
+          <ProductsList filters={{"name": ""}}/>
         </section>
 
         <hr className="border-pink-300 my-6" />
 
         <section className="mb-8">
           <h4 className="text-xl font-serif text-pink-600 mb-4">
-            Promoções Especiais
+            Amadeirados
           </h4>
-          <ProductsList />
+          <ProductsList filters={{"tags": "amadeirado"}}/>
         </section>
 
         <hr className="border-pink-300 my-6" />
 
         <section className="mb-8">
           <h4 className="text-xl font-serif text-pink-600 mb-4">
-            Novidades
+            Perfumes
           </h4>
-          <ProductsList />
+          <ProductsList filters={{"category": "Perfumes"}}/>
         </section>
       </div>
     </div>

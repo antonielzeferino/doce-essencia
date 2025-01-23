@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { ProductData } from "@/app/api/products/route";
 import Loading from "@/app/loading";
@@ -7,14 +7,29 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const ProductsList = () => {
+interface ProductsListProps {
+  filters?: Record<string, string>;
+}
+
+const ProductsList = ({ filters }: ProductsListProps) => {
   const [products, setProducts] = useState<ProductData[]>([]);
   const [isLoading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get<ProductData[]>("/api/products");
+        setLoading(true);
+
+        const filterQuery = filters
+          ? Object.entries(filters)
+              .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+              .join("&")
+          : "";
+
+        const response = await axios.get<ProductData[]>(
+          `/api/products/search/${filterQuery}`
+        );
+
         setProducts(response.data);
       } catch (error) {
         console.error("Erro ao buscar produtos:", error);
@@ -24,7 +39,7 @@ const ProductsList = () => {
     };
 
     fetchProducts();
-  }, []);
+  }, [filters]);
 
   return (
     <div className="w-full p-4">
@@ -55,7 +70,7 @@ const ProductsList = () => {
                       width={320}
                       height={240}
                       className="w-full h-60 object-cover rounded-t-lg"
-                      loading="lazy"
+                      priority
                     />
                   </Link>
                   <div className="p-3">
