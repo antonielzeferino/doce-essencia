@@ -27,7 +27,7 @@ function Home() {
   return (
     <div className="min-h-screen w-full overflow-hidden flex flex-col md:flex-row items-center justify-center">
       {/* Imagem de fundo - no mobile ocupa toda a tela, e em telas grandes ocupa metade */}
-      <div className="w-full h-screen max-w-3xl md:max-w-[425px] lg:max-w-full relative">
+      <div className="w-full h-screen max-w-3xl md:max-w-[425px] lg:max-w-6xl relative">
         <Image
           src={backgroundImage}
           alt="Home Background"
