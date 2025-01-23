@@ -22,7 +22,7 @@ const ProductsList = ({ filters }: ProductsListProps) => {
 
         const filterQuery = filters
           ? Object.entries(filters)
-              .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+              .map(([key, value]) => `${key}=${value}`)
               .join("&")
           : "";
 
