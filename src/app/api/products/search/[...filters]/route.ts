@@ -7,7 +7,7 @@ type FilterValue = {
   name?: { contains: string; mode: "insensitive" };
   description?: { contains: string; mode: "insensitive" };
   tags?: { hasSome: string[] };
-  category?: { equals: string };
+  category?: { contains: string };
 };
 
 export async function GET(
@@ -34,7 +34,7 @@ export async function GET(
           filterObject.tags = { hasSome: value.split(",") };
           break;
         case "category":
-          filterObject.category = { equals: value };
+          filterObject.category = { contains: value };
           break;
         default:
           break;
