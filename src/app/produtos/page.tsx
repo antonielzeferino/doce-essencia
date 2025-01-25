@@ -44,30 +44,7 @@ function Products() {
   return (
     <div className="bg-cover bg-center flex flex-col items-center py-8 px-1 md:px-4">
       <div className="w-full max-w-7xl min-[1280px]:shadow-lg min-[1280px]:rounded-lg px-1 md:p-6">
-        {/* Botão de voltar */}
-        <Link
-          href="/"
-          className="text-pink-600 font-semibold hover:text-pink-800 transition-colors mb-6 inline-flex items-center gap-2"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="w-5 h-5"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 19.5L8.25 12l7.5-7.5"
-            />
-          </svg>
-          Voltar
-        </Link>
-
-        {/* Input de pesquisa */}
-        <form onSubmit={handleSearch} className="flex items-center gap-2 mb-8">
+        <form onSubmit={handleSearch} className="flex items-center gap-2 mb-4 sm:mb-8">
           <input
             type="text"
             placeholder="Buscar por nome..."

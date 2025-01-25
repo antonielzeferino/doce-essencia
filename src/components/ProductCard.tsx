@@ -3,16 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 
 const ProductCard = ({ product }: { product: ProductData }) => {
-  const { id, name, price, discountPercentage, imageUrl } = product;
+  const { id, name, price, discountPercentage, imageUrl, brand } = product;
 
   const discountPrice =
     discountPercentage &&
     ((price - (price * discountPercentage) / 100).toFixed(2));
 
   return (
-    <div className="bg-gray-100 bg-opacity-40 rounded-lg w-[130px] flex-shrink-0">
+    <div className="bg-white bg-opacity-80 rounded-lg w-[100px] md:w-[180px] flex-shrink-0">
       <Link href={`/produtos/${id}`} className="relative">
-        {/* Contêiner da imagem */}
         <Image
           src={
             imageUrl ||
@@ -21,11 +20,10 @@ const ProductCard = ({ product }: { product: ProductData }) => {
           alt={name}
           width={320}
           height={240}
-          className="w-full h-48 object-cover rounded-t-lg"
+          className="w-full h-28 md:h-48 object-cover rounded-t-lg"
           priority
         />
 
-        {/* Índice de desconto */}
         {discountPercentage && (
           <span className="absolute top-2 right-2 bg-pink-500 text-white text-xs font-bold px-2 py-1 rounded-md shadow-md">
             -{discountPercentage}%
@@ -34,26 +32,36 @@ const ProductCard = ({ product }: { product: ProductData }) => {
       </Link>
       <div className="p-3">
         <Link href={`/produtos/${id}`}>
-          <h5 className="text-sm font-medium text-gray-800 mb-1">
-            <span className="hover:text-indigo-500 transition-colors duration-300 line-clamp-1">
-              {name}
-            </span>
-          </h5>
+          {brand && (
+            <p className="text-[10px] text-gray-500 font-medium uppercase mb-1">
+              {brand}
+            </p>
+          )}
+          {/* Contêiner do título com altura fixa */}
+          <div className="h-12 md:h-12 flex items-center">
+            <h5 className="text-sm font-medium text-gray-800 line-clamp-2">
+              <span className="hover:text-indigo-500 transition-colors duration-300">
+                {name}
+              </span>
+            </h5>
+          </div>
         </Link>
         <div className="flex flex-col items-start">
           {/* Contêiner de preço com altura fixa */}
-          <div className="h-12 flex flex-col justify-center">
+          <div className="h-max md:h-14 flex flex-col justify-center">
             {discountPercentage ? (
-              <>
-                <span className="line-through text-gray-400 text-xs mr-1">
+              <div className="flex flex-col gap-1">
+                <span className="line-through text-red-700 text-xs">
                   R$ {price.toFixed(2)}
                 </span>
                 <span className="text-green-700 font-bold">
                   R$ {discountPrice}
                 </span>
-              </>
+              </div>
             ) : (
-              <span className="text-green-700 font-bold">R$ {price.toFixed(2)}</span>
+              <span className="text-green-700 font-bold text-base">
+                R$ {price.toFixed(2)}
+              </span>
             )}
           </div>
         </div>
