@@ -45,6 +45,23 @@ export async function GET(
       where: filterObject,
     });
 
+    for (const product of products) {
+      if (
+        product.promotionEndDate &&
+        product.discountPercentage &&
+        new Date(product.promotionEndDate) <= new Date() &&
+        product.discountPercentage > 0
+      ) {
+        await prisma.product.update({
+          where: { id: product.id },
+          data: {
+            discountPercentage: 0,
+            promotionEndDate: null,
+          },
+        });
+      }
+    }
+
     const response = NextResponse.json(products, { status: 200 });
 
     // Adicionar cabeçalhos CORS
