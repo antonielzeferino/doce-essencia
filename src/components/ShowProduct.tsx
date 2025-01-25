@@ -30,15 +30,33 @@ const ShowProduct = ({ id }: { id: string }) => {
     discountPercentage,
     promotionEndDate,
     imageUrl,
+    brand,
+    colors,
   } = product;
 
   const discountPrice =
     discountPercentage &&
     (price - (price * discountPercentage) / 100).toFixed(2);
 
+  // Função para validar a data de fim da promoção
+  const isValidDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    return date.toString() !== "Invalid Date" && date > now;
+  };
+
+  const formattedEndDate =
+    promotionEndDate && isValidDate(promotionEndDate)
+      ? new Date(promotionEndDate).toLocaleDateString("pt-BR", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        })
+      : null;
+
   return (
-    <div className="flex flex-col items-center px-4 sm:px-6 md:px-8">
-      <main className="w-full max-w-3xl flex flex-col md:flex-row">
+    <div className="flex flex-col items-center px-4 sm:px-6 md:px-8 py-8 bg-gray-50 min-h-screen">
+      <main className="w-full max-w-4xl flex flex-col md:flex-row bg-white rounded-lg shadow-md overflow-hidden">
         {/* Imagem do produto */}
         <div className="w-full md:w-1/2">
           <Image
@@ -49,40 +67,70 @@ const ShowProduct = ({ id }: { id: string }) => {
             alt={name}
             width={700}
             height={500}
-            className="w-full h-auto object-cover rounded-md"
+            className="w-full h-auto object-cover"
           />
         </div>
 
         {/* Informações do Produto */}
-        <div className="text-center md:text-left mt-4 md:mt-0 md:pl-6">
-          <h1 className="text-xl sm:text-2xl font-medium text-gray-800 mb-2">{name}</h1>
-          {discountPercentage ? (
-            <div>
-              <p className="text-sm text-gray-500 line-through">
-                {price.toFixed(2)} R$
+        <div className="p-6 flex flex-col justify-between">
+          <div>
+            {/* Marca do produto */}
+            {brand && (
+              <p className="text-sm text-gray-500 mb-1">
+                Marca: <span className="font-medium text-gray-800">{brand}</span>
               </p>
-              <p className="text-xl sm:text-2xl font-bold text-red-500">
-                {discountPrice} R$
+            )}
+            {/* Nome do produto */}
+            <h1 className="text-2xl font-semibold text-gray-800 mb-4">{name}</h1>
+
+            {/* Preço e Desconto */}
+            {discountPercentage ? (
+              <div>
+                <p className="text-sm text-gray-500 line-through">
+                  R$ {price.toFixed(2)}
+                </p>
+                <p className="text-2xl font-bold text-red-500">
+                  R$ {discountPrice}
+                </p>
+                <p className="text-sm text-gray-600">
+                  Desconto de {discountPercentage}%
+                  {formattedEndDate && ` até ${formattedEndDate}`}
+                </p>
+              </div>
+            ) : (
+              <p className="text-2xl font-bold text-green-600">
+                R$ {price.toFixed(2)}
               </p>
-              <p className="text-xs text-gray-600">
-                Desconto de {discountPercentage}% {promotionEndDate && `até ${promotionEndDate}`}
-              </p>
+            )}
+          </div>
+
+          {/* Cores do produto */}
+          {colors && colors.length > 0 && (
+            <div className="mt-6">
+              <h3 className="text-sm font-medium text-gray-700 mb-2">Cores disponíveis:</h3>
+              <div className="flex flex-wrap gap-2">
+                {colors.map((color, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full border border-gray-200"
+                  >
+                    {color}
+                  </span>
+                ))}
+              </div>
             </div>
-          ) : (
-            <p className="text-xl sm:text-2xl font-bold text-green-600">
-              {price.toFixed(2)} R$
-            </p>
           )}
+
           {/* Botão de Favoritar */}
-          <button className="border border-gray-300 px-3 py-1 rounded-md mt-3 text-sm hover:bg-gray-100 transition">
+          <button className="mt-6 border border-pink-500 text-pink-500 px-4 py-2 rounded-lg font-medium hover:bg-pink-500 hover:text-white transition">
             Favoritar
           </button>
         </div>
       </main>
 
       {/* Descrição do Produto */}
-      <div className="mt-6 w-full max-w-3xl">
-        <h2 className="text-lg font-semibold text-gray-700 mb-2">Descrição</h2>
+      <div className="mt-8 w-full max-w-4xl bg-white p-6 rounded-lg shadow-md">
+        <h2 className="text-lg font-semibold text-gray-800 mb-4">Descrição</h2>
         <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
       </div>
     </div>
