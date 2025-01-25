@@ -2,7 +2,6 @@
 
 import ProductsList from "@/components/ListProducts";
 import { useState } from "react";
-import Link from "next/link";
 
 interface FilterOption {
   name: string;
