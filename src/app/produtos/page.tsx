@@ -89,11 +89,10 @@ function Products() {
             <button
               key={index}
               onClick={() => handleOptionClick(option)}
-              className={`inline-block px-4 py-2 mx-2 rounded-lg text-sm font-bold ${
-                selectedFilter?.name === option.name
+              className={`inline-block px-4 py-2 mx-2 rounded-lg text-sm font-bold ${selectedFilter?.name === option.name
                   ? "bg-pink-600 text-white"
                   : "bg-pink-100 text-pink-800 hover:bg-pink-200"
-              }`}
+                }`}
             >
               {option.name}
             </button>
@@ -103,36 +102,36 @@ function Products() {
         {/* Exibição dos produtos */}
         {Object.keys(filters).length > 0 ? (
           <section className="mb-8">
-            <h4 className="text-xl font-serif text-pink-600 mb-4">
+            <h4 className="text-xl font-serif text-stone-600 mb-4">
               Resultados da pesquisa
             </h4>
-            <ProductsList filters={filters} />
+            <ProductsList filters={filters} layout="vertical" />
           </section>
         ) : (
           <>
             <section className="mb-8">
-              <h4 className="text-xl font-serif text-pink-600 mb-4">
+              <h4 className="text-xl font-serif text-stone-600 mb-4">
                 Todos os produtos
               </h4>
-              <ProductsList filters={{ name: "" }} />
+              <ProductsList filters={{ name: "" }} layout="horizontal" />
             </section>
 
-            <hr className="border-pink-300 my-6" />
+            <hr className="my-6" />
 
             <section className="mb-8">
-              <h4 className="text-xl font-serif text-pink-600 mb-4">
+              <h4 className="text-xl font-serif text-stone-600 mb-4">
                 Amadeirados
               </h4>
-              <ProductsList filters={{ tags: "amadeirado" }} />
+              <ProductsList filters={{ tags: "Amadeirados" }} layout="horizontal" />
             </section>
 
-            <hr className="border-pink-300 my-6" />
+            <hr className="my-6" />
 
             <section className="mb-8">
-              <h4 className="text-xl font-serif text-pink-600 mb-4">
+              <h4 className="text-xl font-serif text-stone-600 mb-4">
                 Perfumes
               </h4>
-              <ProductsList filters={{ category: "Perfumes" }} />
+              <ProductsList filters={{ category: "Perfumes" }} layout="horizontal" />
             </section>
           </>
         )}
