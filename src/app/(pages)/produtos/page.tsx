@@ -15,12 +15,11 @@ function Products() {
 
   const options: FilterOption[] = [
     { name: "Todos", type: "" },
-    { name: "Amadeirados", type: "tags" },
-    { name: "Perfumes", type: "category" },
-    { name: "Unissex", type: "tags" },
-    { name: "Masculino", type: "tags" },
-    { name: "Luxo", type: "tags" },
-    { name: "Esportivas", type: "tags" },
+    { name: "Promoções", type: "tags" },
+    { name : "Masculino", type: "tags" },
+    { name : "Feminino", type: "tags" },
+    { name : "Unissex", type: "tags" },
+    { name : "Kits & presentes", type: "tags" },
   ];
 
   const handleSearch = (e: React.FormEvent) => {
@@ -67,7 +66,7 @@ function Products() {
               onClick={() => handleOptionClick(option)}
               className={`inline-block px-4 py-2 mx-2 rounded-lg text-sm font-bold ${selectedFilter?.name === option.name
                   ? "bg-pink-600 text-white"
-                  : "bg-pink-100 text-pink-800 hover:bg-pink-200"
+                  : "bg-pink-100 text-gray-800 hover:bg-pink-200"
                 }`}
             >
               {option.name}
