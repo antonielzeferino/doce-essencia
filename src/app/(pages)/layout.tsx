@@ -14,7 +14,7 @@ export default function ProdutosLayout({
   return (
     <>
       <Header />
-      <main className="pt-14">{children}</main>
+      <main className="pt-14 min-h-screen flex flex-col">{children}</main>
     </>
   );
 }
