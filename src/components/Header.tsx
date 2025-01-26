@@ -13,7 +13,9 @@ const Header = () => {
       {/* Header */}
       <header className="bg-white shadow-md fixed w-full top-0 z-50">
         <div className="flex items-center justify-between px-4 py-3 max-w-screen-xl mx-auto">
-          <h1 className="text-2xl font-bold text-pink-600">Doce Essência</h1>
+          <Link href={"/produtos"}>
+            <h1 className="text-2xl font-bold text-pink-600">Doce Essência</h1>
+          </Link>
           <button
             onClick={toggleSidebar}
             className="text-pink-600 hover:text-pink-800 transition-colors"
@@ -39,9 +41,8 @@ const Header = () => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 right-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 z-50 ${
-          isSidebarOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed top-0 right-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 z-50 ${isSidebarOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         <div className="flex flex-col h-full">
           <button

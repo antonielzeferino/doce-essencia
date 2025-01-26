@@ -11,6 +11,15 @@ interface ProductsListProps {
   layout?: "vertical" | "horizontal";
 }
 
+const gridClasses = `
+  grid 
+  grid-cols-[repeat(auto-fill,minmax(100px,1fr))] 
+  sm:grid-cols-[repeat(auto-fill,minmax(130px,1fr))]
+  gap-2 
+  sm:gap-4 
+  justify-items-center
+`;
+
 const ProductsList = ({ filters, layout = "horizontal" }: ProductsListProps) => {
   const [products, setProducts] = useState<ProductData[]>([]);
   const [isLoading, setLoading] = useState<boolean>(true);
@@ -46,20 +55,20 @@ const ProductsList = ({ filters, layout = "horizontal" }: ProductsListProps) => 
       {isLoading ? (
         <Loading />
       ) : layout === "vertical" ? (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(130px,1fr))] gap-2 sm:gap-4 justify-items-center">
+        <div className={`${gridClasses}`}>
           {products.length > 0 ? (
             products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} layout={layout}/>
             ))
           ) : (
             <p className="text-center text-gray-500">Nenhum produto disponível.</p>
           )}
         </div>
       ) : (
-        <div className="flex overflow-x-auto gap-4 p-4">
+        <div className="flex overflow-x-auto gap-8 p-4">
           {products.length > 0 ? (
             products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} layout={layout}/>
             ))
           ) : (
             <p className="text-center text-gray-500">Nenhum produto disponível.</p>

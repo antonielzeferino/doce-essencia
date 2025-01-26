@@ -1,35 +1,68 @@
 import { ProductData } from "@/app/api/products/route";
 import Image from "next/image";
 import Link from "next/link";
+import FavoriteButton from "./FavoriteButton";
 
-const ProductCard = ({ product }: { product: ProductData }) => {
+const ProductCard = ({
+  product,
+  layout,
+}: {
+  product: ProductData;
+  layout: string;
+}) => {
   const { id, name, price, discountPercentage, imageUrl, brand } = product;
 
   const discountPrice =
     discountPercentage &&
     ((price - (price * discountPercentage) / 100).toFixed(2));
 
+  // Classes adicionais baseadas no layout
+  const layoutClasses =
+    layout === "vertical"
+      ? "w-full max-w-[300px]"
+      : "w-[100px] md:w-[180px] flex-shrink-0";
+
+  const imageStyle =
+    layout === "vertical"
+      ? "md:h-48"
+      : "md:h-44";
+
+  const onToggleFavorite = () => {
+
+  }
+
   return (
-    <div className="bg-white bg-opacity-80 rounded-lg w-[100px] md:w-[180px] flex-shrink-0">
-      <Link href={`/produtos/${id}`} className="relative">
-        <Image
-          src={
-            imageUrl ||
-            "https://via.placeholder.com/300x400.png?text=Imagem+Indisponível"
-          }
-          alt={name}
-          width={320}
-          height={240}
-          className="w-full h-28 md:h-48 object-cover rounded-t-lg"
-          priority
+    <div
+      className={`bg-white bg-opacity-80 rounded-lg ${layoutClasses}`}
+    >
+      <div className="relative">
+        <Link href={`/produtos/${id}`}>
+          <Image
+            src={
+              imageUrl ||
+              "https://via.placeholder.com/300x400.png?text=Imagem+Indisponível"
+            }
+            alt={name}
+            width={320}
+            height={240}
+            className={`w-full h-32 object-cover rounded-t-lg ${imageStyle}`}
+            priority
+          />
+        </Link>
+
+        <FavoriteButton
+          productId={id}
+          onToggleFavorite={onToggleFavorite}
         />
 
+
         {discountPercentage && (
-          <span className="absolute top-2 right-2 bg-pink-500 text-white text-xs font-bold px-2 py-1 rounded-md shadow-md">
+          <span className="absolute bottom-2 right-2 bg-pink-500 text-white text-[10px] px-1 sm:text-xs font-bold sm:px-2 sm:py-1 rounded-md shadow-md">
             -{discountPercentage}%
           </span>
         )}
-      </Link>
+      </div>
+
       <div className="p-3">
         <Link href={`/produtos/${id}`}>
           {brand && (
@@ -54,12 +87,12 @@ const ProductCard = ({ product }: { product: ProductData }) => {
                 <span className="line-through text-red-700 text-xs">
                   R$ {price.toFixed(2)}
                 </span>
-                <span className="text-green-700 font-bold">
+                <span className="text-green-500 font-bold">
                   R$ {discountPrice}
                 </span>
               </div>
             ) : (
-              <span className="text-green-700 font-bold text-base">
+              <span className="text-green-500 font-bold text-base">
                 R$ {price.toFixed(2)}
               </span>
             )}
