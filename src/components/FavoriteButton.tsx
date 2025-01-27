@@ -7,7 +7,6 @@ const FavoriteButton = ({
 }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
-  // Atualiza o estado local com base no localStorage
   const updateIsFavorite = () => {
     if (id) {
       const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
@@ -15,7 +14,6 @@ const FavoriteButton = ({
     }
   };
 
-  // Função para salvar/remover o ID no localStorage
   const updateLocalStorage = (id: string, isFavorite: boolean) => {
     const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
     if (isFavorite) {
@@ -29,11 +27,9 @@ const FavoriteButton = ({
       }
     }
     localStorage.setItem("favorites", JSON.stringify(favorites));
-    // Atualiza todos os componentes ao modificar os favoritos
-    window.dispatchEvent(new Event("storage")); // Dispara o evento para forçar a sincronização
+    window.dispatchEvent(new Event("storage"));
   };
 
-  // Função para alternar o estado do botão
   const handleToggle = (event: React.MouseEvent) => {
     event.stopPropagation();
     const newFavoriteStatus = !isFavorite;
@@ -43,18 +39,15 @@ const FavoriteButton = ({
     }
   };
 
-  // Verifica o estado inicial do produto no localStorage
   useEffect(() => {
     updateIsFavorite();
 
-    // Adiciona o listener para o evento de storage
     const handleStorageChange = () => {
       updateIsFavorite();
     };
 
     window.addEventListener("storage", handleStorageChange);
 
-    // Remove o listener ao desmontar o componente
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
@@ -69,7 +62,7 @@ const FavoriteButton = ({
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
-        className={`w-6 h-6 transition-colors hover:fill-pink-500 duration-300 ${
+        className={`w-6 h-6 transition-colors duration-300 hover:text-pink-500 ${
           isFavorite ? "text-pink-500 fill-pink-500" : "text-gray-400"
         }`}
         fill={isFavorite ? "currentColor" : "none"}

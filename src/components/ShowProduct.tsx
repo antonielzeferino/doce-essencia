@@ -39,7 +39,6 @@ const ShowProduct = ({ id }: { id: string }) => {
     discountPercentage &&
     (price - (price * discountPercentage) / 100).toFixed(2);
 
-  // Função para validar a data de fim da promoção
   const isValidDate = (dateString: string) => {
     const date = new Date(dateString);
     const now = new Date();
@@ -49,16 +48,17 @@ const ShowProduct = ({ id }: { id: string }) => {
   const formattedEndDate =
     promotionEndDate && isValidDate(promotionEndDate)
       ? new Date(promotionEndDate).toLocaleDateString("pt-BR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      })
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        })
       : null;
 
   return (
-    <div className="flex flex-col items-center px-4 sm:px-6 md:px-8 py-8 bg-gray-50 min-h-screen">
-      <main className="w-full max-w-4xl flex flex-col md:flex-row bg-white rounded-lg shadow-md overflow-hidden">
-        <div className="w-full md:w-1/2 relative">
+    <div className="flex flex-col items-center px-4 sm:px-6 md:px-8 bg-gray-50">
+      <main className="w-full max-w-6xl flex flex-col md:flex-row bg-white rounded-lg shadow-md overflow-hidden">
+        {/* Image Section */}
+        <div className="w-full md:w-1/4 relative">
           <Image
             src={
               imageUrl ||
@@ -73,24 +73,25 @@ const ShowProduct = ({ id }: { id: string }) => {
           <FavoriteButton id={id} />
         </div>
 
-        <div className="p-6 flex flex-col justify-between">
+        {/* Info Section */}
+        <div className="p-6 flex flex-col justify-between w-full md:w-1/2">
           <div>
             {brand && (
               <p className="text-sm text-gray-500 mb-1">
                 Marca: <span className="font-medium text-gray-800">{brand}</span>
               </p>
             )}
-            <h1 className="text-2xl font-semibold text-gray-800 mb-4">{name}</h1>
+            <h1 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">{name}</h1>
 
             {discountPercentage ? (
               <div>
-                <p className="text-sm text-gray-500 line-through">
+                <p className="text-sm text-red-500 line-through">
                   R$ {price.toFixed(2)}
                 </p>
-                <p className="text-2xl font-bold text-red-500">
+                <p className="text-2xl font-bold text-green-500">
                   R$ {discountPrice}
                 </p>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-500">
                   Desconto de {discountPercentage}%
                   {formattedEndDate && ` até ${formattedEndDate}`}
                 </p>
@@ -103,7 +104,7 @@ const ShowProduct = ({ id }: { id: string }) => {
           </div>
 
           {colors && colors.length > 0 && (
-            <div className="mt-6">
+            <div className="mt-4">
               <h3 className="text-sm font-medium text-gray-700 mb-2">Cores disponíveis:</h3>
               <div className="flex flex-wrap gap-2">
                 {colors.map((color, index) => (
@@ -117,12 +118,13 @@ const ShowProduct = ({ id }: { id: string }) => {
               </div>
             </div>
           )}
+
+          <div>
+            <h2 className="text-lg font-semibold text-gray-800 mb-2">Descrição</h2>
+            <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
+          </div>
         </div>
       </main>
-      <div className="mt-8 w-full max-w-4xl bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-lg font-semibold text-gray-800 mb-4">Descrição</h2>
-        <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
-      </div>
     </div>
   );
 };

@@ -81,7 +81,7 @@ const Favoritos = () => {
               key={produto.id}
               className="bg-white shadow-md rounded-lg p-4 flex flex-col relative"
             >
-              <Link href={`produtos/${produto.id}`}>
+              <Link href={`/produtos/${produto.id}`}>
                 <Image
                   src={produto.imageUrl || "https://via.placeholder.com/200"}
                   alt={produto.name}

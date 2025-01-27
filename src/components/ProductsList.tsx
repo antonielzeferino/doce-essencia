@@ -51,7 +51,7 @@ const ProductsList = ({ filters, layout = "horizontal" }: ProductsListProps) => 
   }, [filters]);
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full py-4">
       {isLoading ? (
         <Loading />
       ) : layout === "vertical" ? (
@@ -65,7 +65,7 @@ const ProductsList = ({ filters, layout = "horizontal" }: ProductsListProps) => 
           )}
         </div>
       ) : (
-        <div className="flex overflow-x-auto gap-8 p-4">
+        <div className="flex overflow-x-auto gap-8 py-4">
           {products.length > 0 ? (
             products.map((product) => (
               <ProductCard key={product.id} product={product} layout={layout}/>

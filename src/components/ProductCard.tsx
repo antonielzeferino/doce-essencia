@@ -29,7 +29,7 @@ const ProductCard = ({
 
   return (
     <div
-      className={`bg-white bg-opacity-80 rounded-lg ${layoutClasses}`}
+      className={`bg-white bg-opacity-80 rounded-lg shadow-sm ${layoutClasses}`}
     >
       <div className="relative">
         <Link href={`/produtos/${id}`}>

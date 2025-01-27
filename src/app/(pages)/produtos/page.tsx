@@ -1,6 +1,6 @@
 'use client';
 
-import ProductsList from "@/components/ListProducts";
+import ProductsList from "@/components/ProductsList";
 import { useState } from "react";
 
 interface FilterOption {
@@ -15,11 +15,11 @@ function Products() {
 
   const options: FilterOption[] = [
     { name: "Todos", type: "" },
-    { name: "Promoções", type: "tags" },
-    { name : "Masculino", type: "tags" },
-    { name : "Feminino", type: "tags" },
-    { name : "Unissex", type: "tags" },
-    { name : "Kits & presentes", type: "tags" },
+    { name: "Promoções", type: "promotion" },
+    { name: "Masculino", type: "tags" },
+    { name: "Feminino", type: "tags" },
+    { name: "Unissex", type: "tags" },
+    { name: "Kits & presentes", type: "tags" },
   ];
 
   const handleSearch = (e: React.FormEvent) => {
@@ -30,13 +30,20 @@ function Products() {
     if (searchTerm.trim()) {
       newFilters["name"] = searchTerm.trim();
     }
-    setSelectedFilter(null)
+    setSelectedFilter(null);
     setFilters(newFilters);
   };
 
   const handleOptionClick = (option: FilterOption) => {
     setSelectedFilter(option);
-    setFilters(option.type === "" ? {} : { [option.type]: option.name });
+
+    if (option.type === "promotion") {
+      setFilters({ promotion: "true" });
+    } else if (option.type === "") {
+      setFilters({});
+    } else {
+      setFilters({ [option.type]: option.name });
+    }
   };
 
   return (
@@ -48,7 +55,7 @@ function Products() {
             placeholder="Buscar por nome..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-2 border border-pink-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-pink-800"
+            className="w-full px-4 py-2 border border-pink-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-200 bg-white text-gray-700"
           />
           <button
             type="submit"
@@ -58,23 +65,22 @@ function Products() {
           </button>
         </form>
 
-        {/* Carrossel de opções */}
         <div className="overflow-x-auto whitespace-nowrap py-4 mb-8 ps-2">
           {options.map((option, index) => (
             <button
               key={index}
               onClick={() => handleOptionClick(option)}
-              className={`inline-block px-4 py-2 mx-2 rounded-lg text-sm font-bold ${selectedFilter?.name === option.name
+              className={`inline-block px-4 py-2 mx-2 rounded-lg text-sm font-bold ${
+                selectedFilter?.name === option.name
                   ? "bg-pink-600 text-white"
                   : "bg-pink-100 text-gray-800 hover:bg-pink-200"
-                }`}
+              }`}
             >
               {option.name}
             </button>
           ))}
         </div>
 
-        {/* Exibição dos produtos */}
         {Object.keys(filters).length > 0 ? (
           <section className="mb-8 px-4">
             <h4 className="text-xl font-serif text-stone-600 mb-4">
@@ -95,7 +101,7 @@ function Products() {
 
             <section className="mb-8 px-4">
               <h4 className="text-xl font-serif text-stone-600 mb-4">
-                Amadeirados
+                Kits & Presentes
               </h4>
               <ProductsList filters={{ tags: "Amadeirados" }} layout="horizontal" />
             </section>

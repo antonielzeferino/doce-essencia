@@ -2,7 +2,7 @@
 
 export default function SobreNos() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-pink-50 to-pink-100">
+    <main className="min-h-screen bg-background">
       <div className="max-w-5xl mx-auto p-6">
         <header className="text-center mb-12">
           <h1 className="text-4xl font-bold text-pink-900 sm:text-5xl md:text-6xl">
