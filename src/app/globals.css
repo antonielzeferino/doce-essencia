@@ -5,10 +5,25 @@
 :root {
   --background: rgb(249 250 251);
   --foreground: #171717;
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'Poppins', sans-serif;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-serif);
+}
+
+p,
+button,
+a,
+li {
+  font-family: var(--font-sans);
 }
