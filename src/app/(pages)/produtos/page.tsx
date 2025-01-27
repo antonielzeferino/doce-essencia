@@ -42,7 +42,7 @@ function Products() {
   return (
     <div className="bg-cover bg-center flex flex-col items-center py-8 px-1 md:px-4">
       <div className="w-full max-w-7xl min-[1280px]:shadow-lg min-[1280px]:rounded-lg px-1 md:p-6">
-        <form onSubmit={handleSearch} className="flex items-center gap-2 mb-4 sm:mb-8">
+        <form onSubmit={handleSearch} className="flex items-center gap-2 mb-4 sm:mb-8 px-4">
           <input
             type="text"
             placeholder="Buscar por nome..."
@@ -59,7 +59,7 @@ function Products() {
         </form>
 
         {/* Carrossel de opções */}
-        <div className="overflow-x-auto whitespace-nowrap py-4 mb-8">
+        <div className="overflow-x-auto whitespace-nowrap py-4 mb-8 ps-2">
           {options.map((option, index) => (
             <button
               key={index}
@@ -76,7 +76,7 @@ function Products() {
 
         {/* Exibição dos produtos */}
         {Object.keys(filters).length > 0 ? (
-          <section className="mb-8">
+          <section className="mb-8 px-4">
             <h4 className="text-xl font-serif text-stone-600 mb-4">
               Resultados da pesquisa
             </h4>
@@ -84,16 +84,16 @@ function Products() {
           </section>
         ) : (
           <>
-            <section className="mb-8">
+            <section className="mb-8 px-4">
               <h4 className="text-xl font-serif text-stone-600 mb-4">
-                Todos os produtos
+                Promoções
               </h4>
-              <ProductsList filters={{ name: "" }} layout="horizontal" />
+              <ProductsList filters={{ promotion: "true" }} layout="horizontal" />
             </section>
 
             <hr className="my-6" />
 
-            <section className="mb-8">
+            <section className="mb-8 px-4">
               <h4 className="text-xl font-serif text-stone-600 mb-4">
                 Amadeirados
               </h4>
@@ -102,7 +102,7 @@ function Products() {
 
             <hr className="my-6" />
 
-            <section className="mb-8">
+            <section className="mb-8 px-4">
               <h4 className="text-xl font-serif text-stone-600 mb-4">
                 Perfumes
               </h4>

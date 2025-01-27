@@ -1,10 +1,11 @@
 "use client";
 
-import { ProductData } from "@/app/api/products/route";
 import Loading from "@/app/loading";
 import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import FavoriteButton from "./FavoriteButton";
+import { ProductData } from "@/app/api/products/search/[...filters]/route";
 
 const ShowProduct = ({ id }: { id: string }) => {
   const [product, setProduct] = useState<ProductData>();
@@ -48,17 +49,16 @@ const ShowProduct = ({ id }: { id: string }) => {
   const formattedEndDate =
     promotionEndDate && isValidDate(promotionEndDate)
       ? new Date(promotionEndDate).toLocaleDateString("pt-BR", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-        })
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      })
       : null;
 
   return (
     <div className="flex flex-col items-center px-4 sm:px-6 md:px-8 py-8 bg-gray-50 min-h-screen">
       <main className="w-full max-w-4xl flex flex-col md:flex-row bg-white rounded-lg shadow-md overflow-hidden">
-        {/* Imagem do produto */}
-        <div className="w-full md:w-1/2">
+        <div className="w-full md:w-1/2 relative">
           <Image
             src={
               imageUrl ||
@@ -68,22 +68,20 @@ const ShowProduct = ({ id }: { id: string }) => {
             width={700}
             height={500}
             className="w-full h-auto object-cover"
+            priority
           />
+          <FavoriteButton id={id} />
         </div>
 
-        {/* Informações do Produto */}
         <div className="p-6 flex flex-col justify-between">
           <div>
-            {/* Marca do produto */}
             {brand && (
               <p className="text-sm text-gray-500 mb-1">
                 Marca: <span className="font-medium text-gray-800">{brand}</span>
               </p>
             )}
-            {/* Nome do produto */}
             <h1 className="text-2xl font-semibold text-gray-800 mb-4">{name}</h1>
 
-            {/* Preço e Desconto */}
             {discountPercentage ? (
               <div>
                 <p className="text-sm text-gray-500 line-through">
@@ -104,7 +102,6 @@ const ShowProduct = ({ id }: { id: string }) => {
             )}
           </div>
 
-          {/* Cores do produto */}
           {colors && colors.length > 0 && (
             <div className="mt-6">
               <h3 className="text-sm font-medium text-gray-700 mb-2">Cores disponíveis:</h3>
@@ -120,15 +117,8 @@ const ShowProduct = ({ id }: { id: string }) => {
               </div>
             </div>
           )}
-
-          {/* Botão de Favoritar */}
-          <button className="mt-6 border border-pink-500 text-pink-500 px-4 py-2 rounded-lg font-medium hover:bg-pink-500 hover:text-white transition">
-            Favoritar
-          </button>
         </div>
       </main>
-
-      {/* Descrição do Produto */}
       <div className="mt-8 w-full max-w-4xl bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-lg font-semibold text-gray-800 mb-4">Descrição</h2>
         <p className="text-gray-600 text-sm leading-relaxed">{description}</p>

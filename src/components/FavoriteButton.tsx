@@ -1,20 +1,64 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const FavoriteButton = ({
-  productId,
-  onToggleFavorite,
+  id,
 }: {
-  productId?: string;
-  onToggleFavorite: (id: string | undefined, isFavorite: boolean) => void;
+  id?: string;
 }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
+  // Atualiza o estado local com base no localStorage
+  const updateIsFavorite = () => {
+    if (id) {
+      const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+      setIsFavorite(favorites.includes(id));
+    }
+  };
+
+  // Função para salvar/remover o ID no localStorage
+  const updateLocalStorage = (id: string, isFavorite: boolean) => {
+    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+    if (isFavorite) {
+      if (!favorites.includes(id)) {
+        favorites.push(id);
+      }
+    } else {
+      const index = favorites.indexOf(id);
+      if (index !== -1) {
+        favorites.splice(index, 1);
+      }
+    }
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    // Atualiza todos os componentes ao modificar os favoritos
+    window.dispatchEvent(new Event("storage")); // Dispara o evento para forçar a sincronização
+  };
+
+  // Função para alternar o estado do botão
   const handleToggle = (event: React.MouseEvent) => {
-    event.stopPropagation(); // Impede que o clique propague para o link
+    event.stopPropagation();
     const newFavoriteStatus = !isFavorite;
     setIsFavorite(newFavoriteStatus);
-    onToggleFavorite(productId, newFavoriteStatus);
+    if (id) {
+      updateLocalStorage(id, newFavoriteStatus);
+    }
   };
+
+  // Verifica o estado inicial do produto no localStorage
+  useEffect(() => {
+    updateIsFavorite();
+
+    // Adiciona o listener para o evento de storage
+    const handleStorageChange = () => {
+      updateIsFavorite();
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    // Remove o listener ao desmontar o componente
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [id]);
 
   return (
     <button

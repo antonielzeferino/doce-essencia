@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Header from "@/components/Header"; // Atualize o caminho para onde está seu Header
 import type { Metadata } from "next";
 
@@ -12,9 +13,10 @@ export default function ProdutosLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div className="flex flex-col h-screen">
       <Header />
-      <main className="pt-14 min-h-screen flex flex-col">{children}</main>
-    </>
+      <main className="pt-14 flex flex-col flex-grow">{children}</main>
+      <Footer />
+    </div>
   );
 }

@@ -1,13 +1,33 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-type FilterKeys = "name" | "description" | "tags" | "category";
+export interface ProductData {
+  id?: string;
+  name: string;
+  description: string;
+  price: number;
+  discountPercentage?: number;
+  promotionEndDate?: string;
+  tags?: string[];
+  category: string;
+  brand?: string;
+  quantity?: string;
+  weight?: number;
+  colors?: string[];
+  imageUrl: string;
+}
+
+type FilterKeys = "name" | "description" | "tags" | "category" | "promotion";
 
 type FilterValue = {
   name?: { contains: string; mode: "insensitive" };
   description?: { contains: string; mode: "insensitive" };
   tags?: { hasSome: string[] };
   category?: { contains: string };
+  AND?: { 
+    promotionEndDate?: { gt: Date }; 
+    discountPercentage?: { gt: number }; 
+  }[];
 };
 
 export async function GET(
@@ -36,6 +56,14 @@ export async function GET(
         case "category":
           filterObject.category = { contains: value };
           break;
+        case "promotion":
+          if (value === "true") {
+            filterObject.AND = [
+              { promotionEndDate: { gt: new Date() } },
+              { discountPercentage: { gt: 0 } },
+            ];
+          }
+          break;
         default:
           break;
       }
@@ -45,26 +73,25 @@ export async function GET(
       where: filterObject,
     });
 
-    for (const product of products) {
-      if (
+    const expiredProducts = products.filter(
+      (product) =>
         product.promotionEndDate &&
         product.discountPercentage &&
-        new Date(product.promotionEndDate) <= new Date() &&
-        product.discountPercentage > 0
-      ) {
-        await prisma.product.update({
-          where: { id: product.id },
-          data: {
-            discountPercentage: 0,
-            promotionEndDate: null,
-          },
-        });
-      }
+        new Date(product.promotionEndDate) <= new Date()
+    );
+
+    for (const expiredProduct of expiredProducts) {
+      await prisma.product.update({
+        where: { id: expiredProduct.id },
+        data: {
+          discountPercentage: null,
+          promotionEndDate: null,
+        },
+      });
     }
 
     const response = NextResponse.json(products, { status: 200 });
 
-    // Adicionar cabeçalhos CORS
     response.headers.set("Access-Control-Allow-Origin", "*");
     response.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     response.headers.set(
@@ -84,7 +111,6 @@ export async function GET(
       { status: 500 }
     );
 
-    // Adicionar cabeçalhos CORS em caso de erro
     response.headers.set("Access-Control-Allow-Origin", "*");
     response.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     response.headers.set(
@@ -96,7 +122,6 @@ export async function GET(
   }
 }
 
-// Suporte para OPTIONS
 export async function OPTIONS() {
   return new NextResponse(null, {
     status: 204,

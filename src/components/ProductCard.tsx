@@ -1,7 +1,7 @@
-import { ProductData } from "@/app/api/products/route";
 import Image from "next/image";
 import Link from "next/link";
 import FavoriteButton from "./FavoriteButton";
+import { ProductData } from "@/app/api/products/search/[...filters]/route";
 
 const ProductCard = ({
   product,
@@ -27,10 +27,6 @@ const ProductCard = ({
       ? "md:h-48"
       : "md:h-44";
 
-  const onToggleFavorite = () => {
-
-  }
-
   return (
     <div
       className={`bg-white bg-opacity-80 rounded-lg ${layoutClasses}`}
@@ -51,8 +47,7 @@ const ProductCard = ({
         </Link>
 
         <FavoriteButton
-          productId={id}
-          onToggleFavorite={onToggleFavorite}
+          id={id}
         />
 
 

@@ -1,10 +1,10 @@
 "use client"
 
-import { ProductData } from "@/app/api/products/route";
 import Loading from "@/app/loading";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
+import { ProductData } from "@/app/api/products/search/[...filters]/route";
 
 interface ProductsListProps {
   filters?: Record<string, string>;
