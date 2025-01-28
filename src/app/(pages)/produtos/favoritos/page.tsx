@@ -58,7 +58,7 @@ const Favoritos = () => {
 
     const mensagem = favoritos
       .map(
-        (produto) => `- ${produto.name} (R$ ${produto.price.toFixed(2)})`
+        (produto) => `- ${produto.name}`
       )
       .join("\n");
 
