@@ -3,7 +3,6 @@ import Link from "next/link";
 
 const Product = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
-  const productName = `Produto ${id}`;
 
   return (
     <div
