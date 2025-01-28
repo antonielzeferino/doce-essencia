@@ -1,6 +1,7 @@
 'use client';
 
 import ProductsList from "@/components/ProductsList";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { useState } from "react";
 
 interface FilterOption {
@@ -117,6 +118,7 @@ function Products() {
           </>
         )}
       </div>
+      <WhatsAppButton />
     </div>
   );
 }

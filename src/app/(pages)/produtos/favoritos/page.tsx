@@ -1,10 +1,11 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "@/app/loading";
 import Image from "next/image";
 import Link from "next/link";
+import WhatsAppButton, { whatsappNumber } from "@/components/WhatsAppButton";
 
 type ProductData = {
   id: string;
@@ -18,7 +19,6 @@ const Favoritos = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Recupera os IDs dos favoritos no localStorage
     const fetchFavorites = async () => {
       const favoriteIds = JSON.parse(localStorage.getItem("favorites") || "[]");
 
@@ -29,7 +29,6 @@ const Favoritos = () => {
       }
 
       try {
-        // Faz a requisição à API para buscar os produtos favoritos
         const response = await axios.post("/api/products/favorites", {
           ids: favoriteIds,
         });
@@ -47,13 +46,27 @@ const Favoritos = () => {
   }, []);
 
   const removerFavorito = (id: string) => {
-    // Remove o favorito do estado local
     setFavoritos((prev) => prev?.filter((produto) => produto.id !== id) || []);
 
-    // Remove o favorito do localStorage
     const storedFavorites = JSON.parse(localStorage.getItem("favorites") || "[]");
     const updatedFavorites = storedFavorites.filter((favoriteId: string) => favoriteId !== id);
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+  };
+
+  const enviarFavoritosWhatsApp = () => {
+    if (!favoritos || favoritos.length === 0) return;
+
+    const mensagem = favoritos
+      .map(
+        (produto) => `- ${produto.name} (R$ ${produto.price.toFixed(2)})`
+      )
+      .join("\n");
+
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+      `Olá! Gostaria de pedir os seguintes produtos:\n\n${mensagem}`
+    )}`;
+
+    window.open(url, "_blank");
   };
 
   if (loading) {
@@ -73,7 +86,7 @@ const Favoritos = () => {
           </h1>
         </header>
 
-        <div 
+        <div
           className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-6"
         >
           {favoritos.map((produto) => (
@@ -110,13 +123,25 @@ const Favoritos = () => {
                 </svg>
               </button>
               <Link href={`/produtos/${produto.id}`} className="text-start">
-                <h5 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">{produto.name}</h5>
+                <h5 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
+                  {produto.name}
+                </h5>
                 <span className="text-green-700 font-bold">R$ {produto.price.toFixed(2)}</span>
               </Link>
             </div>
           ))}
         </div>
+
+        <div className="mt-8 text-center">
+          <button
+            onClick={enviarFavoritosWhatsApp}
+            className="text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-md transition-all"
+          >
+            Pedir todos os favoritos no WhatsApp
+          </button>
+        </div>
       </div>
+      <WhatsAppButton />
     </section>
   );
 };

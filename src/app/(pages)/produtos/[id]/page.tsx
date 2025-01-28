@@ -1,17 +1,17 @@
 import ShowProduct from "@/components/ShowProduct";
+import { whatsappNumber } from "@/components/WhatsAppButton";
 import Link from "next/link";
+import { FaWhatsapp } from "react-icons/fa";
 
 const Product = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
+  const productName = `Produto ${id}`;
+
   return (
     <div
       className="bg-cover bg-center flex flex-col items-center py-8 px-4"
-      style={{
-        backgroundImage: "url('/path/to/your-background-image.jpg')", // Substitua pelo caminho da sua imagem de fundo
-      }}
     >
-      <div className="w-full ">
-        {/* Botão de voltar */}
+      <div className="max-w-7xl">
         <Link
           href="/produtos"
           className="text-pink-600 font-semibold hover:text-pink-800 transition-colors mb-6 inline-flex items-center gap-2"
@@ -33,10 +33,19 @@ const Product = async ({ params }: { params: Promise<{ id: string }> }) => {
           Voltar
         </Link>
 
-        {/* Detalhes do produto */}
         <div className="mt-4">
           <ShowProduct id={id} />
         </div>
+
+        <a
+          href={`https://wa.me/${whatsappNumber}?text=Olá! Gostaria de fazer um pedido do ${productName}.`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-medium py-3 px-6 rounded-full shadow-lg transition-all"
+        >
+          <FaWhatsapp className="w-5 h-5" />
+          Pedir no WhatsApp
+        </a>
       </div>
     </div>
   );

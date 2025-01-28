@@ -1,5 +1,3 @@
-// app/sobre-nos/page.tsx
-
 export default function SobreNos() {
   return (
     <main className="min-h-screen bg-background">
@@ -12,8 +10,6 @@ export default function SobreNos() {
             Descubra a essência da nossa loja, nossa história, e como nos encontrar em Esperantina, Piauí.
           </p>
         </header>
-
-        {/* História */}
         <section className="mb-16">
           <h2 className="text-2xl font-semibold text-pink-800 mb-4 sm:text-3xl md:text-4xl">
             Nossa História
@@ -25,7 +21,6 @@ export default function SobreNos() {
           </p>
         </section>
 
-        {/* Localização */}
         <section className="mb-16">
           <h2 className="text-2xl font-semibold text-pink-800 mb-4 sm:text-3xl md:text-4xl">
             Nossa Localização
@@ -46,7 +41,6 @@ export default function SobreNos() {
           </div>
         </section>
 
-        {/* Contato */}
         <section>
           <h2 className="text-2xl font-semibold text-pink-800 mb-4 sm:text-3xl md:text-4xl">
             Entre em Contato
