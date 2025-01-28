@@ -50,17 +50,17 @@ const ShowProduct = ({ id }: { id: string }) => {
   const formattedEndDate =
     promotionEndDate && isValidDate(promotionEndDate)
       ? new Date(promotionEndDate).toLocaleDateString("pt-BR", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-        })
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      })
       : null;
 
   return (
     <div className="flex flex-col items-center px-4 sm:px-6 md:px-8 bg-gray-50">
-      <main className="w-full max-w-6xl flex flex-col md:flex-row bg-white rounded-lg shadow-md overflow-hidden">
+      <main className="w-full max-w-6xl flex flex-col md:flex-row bg-white rounded-lg shadow-md overflow-hidden md:items-center">
         {/* Image Section */}
-        <div className="w-full md:w-1/4 relative">
+        <div className="w-full md:w-2/4 lg:w-1/4 relative">
           <Image
             src={
               imageUrl ||
@@ -125,19 +125,18 @@ const ShowProduct = ({ id }: { id: string }) => {
             <h2 className="text-lg font-semibold text-gray-800 mb-2">Descrição</h2>
             <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
           </div>
-        </div>
-
         <a
           href={`https://wa.me/${whatsappNumber}?text=Olá! Gostaria de fazer um pedido do ${name}.`}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-6 inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-medium py-3 px-6 rounded-full shadow-lg transition-all"
+          className="m-2 inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-medium py-3 px-6 rounded-full shadow-lg transition-all max-w-xs w-full h-10"
         >
           <FaWhatsapp className="w-5 h-5" />
           Pedir no WhatsApp
         </a>
-      </main>
-    </div>
+        </div>
+    </main>
+    </div >
   );
 };
 
