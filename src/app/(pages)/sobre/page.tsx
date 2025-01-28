@@ -1,9 +1,11 @@
+import Link from "next/link";
+
 export default function SobreNos() {
   return (
     <main className="min-h-screen bg-background">
-      <div className="max-w-5xl mx-auto p-6">
+      <div className="max-w-7xl mx-auto p-6">
         <header className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-pink-900 sm:text-5xl md:text-6xl">
+          <h1 className="text-4xl font-bold text-pink-700 sm:text-5xl md:text-6xl">
             Sobre Nós
           </h1>
           <p className="mt-4 text-gray-700 text-sm sm:text-base md:text-lg">
@@ -13,7 +15,7 @@ export default function SobreNos() {
         <section className="mb-16">
           <h2 className="text-2xl font-semibold text-pink-800 mb-4 sm:text-3xl md:text-4xl">
             Nossa História
-          </h2> 
+          </h2>
           <p className="text-gray-700 leading-relaxed text-sm sm:text-base md:text-lg">
             A <strong>Doce Essência</strong> nasceu de um sonho: oferecer fragrâncias que toquem o coração e criem memórias. Desde o nosso
             início, temos orgulho de levar aos nossos clientes produtos de alta qualidade, com aromas que inspiram e encantam. Somos movidos pela
@@ -48,12 +50,16 @@ export default function SobreNos() {
           <p className="text-gray-700 leading-relaxed text-sm sm:text-base md:text-lg">
             Caso tenha dúvidas, sugestões ou queira saber mais sobre nossos produtos, entre em contato conosco. Será um prazer atendê-lo!
           </p>
-          <div className="mt-6 bg-white shadow-md p-4 rounded-lg">
+          <div className="mt-6 bg-gray-100 shadow-md p-4 rounded-lg">
             <p className="text-gray-800 text-sm sm:text-base">
-              <strong>Telefone:</strong> (86) 99999-9999
+              <Link href={"#"}>
+                <strong>Telefone:</strong> (86) 99999-9999
+              </Link>
             </p>
-            <p className="text-gray-800 text-sm sm:text-base">
-              <strong>Email:</strong> contato@doceessencia.com
+            <p className="text-gray-800 text-sm sm:text-base mt-2">
+              <Link href={"#"}>
+                <strong>Email:</strong> contato@doceessencia.com
+              </Link>
             </p>
           </div>
         </section>
