@@ -6,6 +6,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import FavoriteButton from "./FavoriteButton";
 import { ProductData } from "@/app/api/products/search/[...filters]/route";
+import { FaWhatsapp } from "react-icons/fa";
+import { whatsappNumber } from "./WhatsAppButton";
 
 const ShowProduct = ({ id }: { id: string }) => {
   const [product, setProduct] = useState<ProductData>();
@@ -124,6 +126,16 @@ const ShowProduct = ({ id }: { id: string }) => {
             <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
           </div>
         </div>
+
+        <a
+          href={`https://wa.me/${whatsappNumber}?text=Olá! Gostaria de fazer um pedido do ${name}.`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-medium py-3 px-6 rounded-full shadow-lg transition-all"
+        >
+          <FaWhatsapp className="w-5 h-5" />
+          Pedir no WhatsApp
+        </a>
       </main>
     </div>
   );

@@ -1,7 +1,5 @@
 import ShowProduct from "@/components/ShowProduct";
-import { whatsappNumber } from "@/components/WhatsAppButton";
 import Link from "next/link";
-import { FaWhatsapp } from "react-icons/fa";
 
 const Product = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
@@ -36,16 +34,6 @@ const Product = async ({ params }: { params: Promise<{ id: string }> }) => {
         <div className="mt-4">
           <ShowProduct id={id} />
         </div>
-
-        <a
-          href={`https://wa.me/${whatsappNumber}?text=Olá! Gostaria de fazer um pedido do ${productName}.`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-6 inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-medium py-3 px-6 rounded-full shadow-lg transition-all"
-        >
-          <FaWhatsapp className="w-5 h-5" />
-          Pedir no WhatsApp
-        </a>
       </div>
     </div>
   );
