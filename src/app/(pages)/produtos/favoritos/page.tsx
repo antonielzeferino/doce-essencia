@@ -6,13 +6,7 @@ import Loading from "@/app/loading";
 import Image from "next/image";
 import Link from "next/link";
 import WhatsAppButton, { whatsappNumber } from "@/components/WhatsAppButton";
-
-type ProductData = {
-  id: string;
-  name: string;
-  price: number;
-  imageUrl: string | null;
-};
+import { ProductData } from "@/app/api/products/search/[...filters]/route";
 
 const Favoritos = () => {
   const [favoritos, setFavoritos] = useState<ProductData[] | null>(null);
@@ -45,7 +39,8 @@ const Favoritos = () => {
     fetchFavorites();
   }, []);
 
-  const removerFavorito = (id: string) => {
+  const removerFavorito = (id?: string) => {
+    if (!id) return
     setFavoritos((prev) => prev?.filter((produto) => produto.id !== id) || []);
 
     const storedFavorites = JSON.parse(localStorage.getItem("favorites") || "[]");

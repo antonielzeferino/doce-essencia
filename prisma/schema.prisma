@@ -17,7 +17,6 @@ model Product {
   tags               String[]
   brand              String?
   quantity           String?
-  weight             Float?
   colors             String[]
   imageUrl           String?
   createdAt          DateTime  @default(now())

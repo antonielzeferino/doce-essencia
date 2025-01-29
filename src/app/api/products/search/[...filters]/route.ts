@@ -12,7 +12,6 @@ export interface ProductData {
   category: string;
   brand?: string;
   quantity?: string;
-  weight?: number;
   colors?: string[];
   imageUrl: string;
 }
