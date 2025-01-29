@@ -20,7 +20,7 @@ function Products() {
     { name: "Masculino", type: "tags" },
     { name: "Feminino", type: "tags" },
     { name: "Unissex", type: "tags" },
-    { name: "Kits & presentes", type: "tags" },
+    { name: "Kits & presentes", type: "category" },
   ];
 
   const handleSearch = (e: React.FormEvent) => {
@@ -104,7 +104,7 @@ function Products() {
               <h4 className="text-xl font-serif text-stone-600 mb-4">
                 Kits & Presentes
               </h4>
-              <ProductsList filters={{ tags: "Amadeirados" }} layout="horizontal" />
+              <ProductsList filters={{ category: "Kits & Presentes" }} layout="horizontal" />
             </section>
 
             <hr className="my-6" />
