@@ -20,7 +20,7 @@ const ProductCard = ({
   const layoutClasses =
     layout === "vertical"
       ? "w-full max-w-[300px]"
-      : "w-[120px] md:w-[200px] flex-shrink-0";
+      : "w-[120px] md:w-[180px] flex-shrink-0";
 
   const imageStyle =
     layout === "vertical"
