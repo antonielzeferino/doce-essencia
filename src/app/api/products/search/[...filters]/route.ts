@@ -50,7 +50,7 @@ export async function GET(
           filterObject.description = { contains: value, mode: "insensitive" };
           break;
         case "tags":
-          filterObject.tags = { hasSome: value.split(",") };
+          filterObject.tags = { hasSome: value.toLowerCase().split(",") };
           break;
         case "category":
           filterObject.category = { contains: value };
