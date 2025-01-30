@@ -71,7 +71,7 @@ const ProductsList = ({ filters, layout = "horizontal" }: ProductsListProps) => 
               <ProductCard key={product.id} product={product} layout={layout}/>
             ))
           ) : (
-            <p className="text-center text-gray-500">Nenhum produto disponível.</p>
+            <p className="text-center text-gray-500 min-w-96">Nenhum produto disponível.</p>
           )}
         </div>
       )}

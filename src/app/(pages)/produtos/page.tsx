@@ -15,12 +15,13 @@ function Products() {
   const [filters, setFilters] = useState<Record<string, string>>({});
 
   const options: FilterOption[] = [
-    { name: "Todos", type: "" },
+    { name: "Início", type: "" },
+    { name: "Todos", type: "allProducts" },
     { name: "Promoções", type: "promotion" },
     { name: "Masculino", type: "tags" },
     { name: "Feminino", type: "tags" },
     { name: "Unissex", type: "tags" },
-    { name: "Kits & presentes", type: "category" },
+    { name: "Kits & Presentes", type: "category" },
   ];
 
   const handleSearch = (e: React.FormEvent) => {
@@ -40,6 +41,8 @@ function Products() {
 
     if (option.type === "promotion") {
       setFilters({ promotion: "true" });
+    } else if (option.type === "allProducts") {
+      setFilters({ option: "all" });
     } else if (option.type === "") {
       setFilters({});
     } else {
@@ -71,11 +74,10 @@ function Products() {
             <button
               key={index}
               onClick={() => handleOptionClick(option)}
-              className={`inline-block px-4 py-2 mx-2 rounded-lg text-sm font-bold ${
-                selectedFilter?.name === option.name
-                  ? "bg-pink-600 text-white"
-                  : "bg-pink-100 text-gray-800 hover:bg-pink-200"
-              }`}
+              className={`inline-block px-4 py-2 mx-2 rounded-lg text-sm font-bold ${selectedFilter?.name === option.name
+                ? "bg-pink-600 text-white"
+                : "bg-pink-100 text-gray-800 hover:bg-pink-200"
+                }`}
             >
               {option.name}
             </button>
@@ -91,32 +93,42 @@ function Products() {
           </section>
         ) : (
           <>
+          {filters.option === "all" ? (
             <section className="mb-8 px-4">
-              <h4 className="text-xl font-serif text-stone-600 mb-4">
-                Promoções
-              </h4>
-              <ProductsList filters={{ promotion: "true" }} layout="horizontal" />
+              <h4 className="text-xl font-serif text-stone-600 mb-4">Todos os Produtos</h4>
+              <ProductsList filters={{}} layout="vertical" />
             </section>
-
-            <hr className="my-6" />
-
+          ) : Object.keys(filters).length > 0 ? (
             <section className="mb-8 px-4">
-              <h4 className="text-xl font-serif text-stone-600 mb-4">
-                Kits & Presentes
-              </h4>
-              <ProductsList filters={{ category: "Kits & Presentes" }} layout="horizontal" />
+              <h4 className="text-xl font-serif text-stone-600 mb-4">Resultados da pesquisa</h4>
+              <ProductsList filters={filters} layout="vertical" />
             </section>
+          ) : (
+            <>
+              <section className="mb-8 px-4">
+                <h4 className="text-xl font-serif text-stone-600 mb-4">Promoções</h4>
+                <ProductsList filters={{ promotion: "true" }} layout="horizontal" />
+              </section>
 
-            <hr className="my-6" />
+              <hr className="my-6" />
 
-            <section className="mb-8 px-4">
-              <h4 className="text-xl font-serif text-stone-600 mb-4">
-                Perfumes
-              </h4>
-              <ProductsList filters={{ category: "Perfumes" }} layout="horizontal" />
-            </section>
+              <section className="mb-8 px-4">
+                <h4 className="text-xl font-serif text-stone-600 mb-4">Kits & Presentes</h4>
+                <ProductsList filters={{ category: "Kits & Presentes" }} layout="horizontal" />
+              </section>
+
+              <hr className="my-6" />
+
+              <section className="mb-8 px-4">
+                <h4 className="text-xl font-serif text-stone-600 mb-4">Perfumes</h4>
+                <ProductsList filters={{ category: "Perfumes" }} layout="horizontal" />
+              </section>
+            </>
+          )}
+
           </>
         )}
+
       </div>
       <WhatsAppButton />
     </div>

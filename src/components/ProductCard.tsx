@@ -87,7 +87,7 @@ const ProductCard = ({
                 </span>
               </div>
             ) : (
-              <span className="text-green-500 font-bold text-base">
+              <span className="text-green-500 font-bold text-sm sm:text-base">
                 R$ {price.toFixed(2)}
               </span>
             )}

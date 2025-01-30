@@ -16,7 +16,7 @@ export interface ProductData {
   imageUrl: string;
 }
 
-type FilterKeys = "name" | "description" | "tags" | "category" | "promotion";
+type FilterKeys = "name" | "description" | "tags" | "category" | "promotion" | "allProducts";
 
 type FilterValue = {
   name?: { contains: string; mode: "insensitive" };
@@ -50,7 +50,8 @@ export async function GET(
           filterObject.description = { contains: value, mode: "insensitive" };
           break;
         case "tags":
-          filterObject.tags = { hasSome: value.toLowerCase().split(",") };
+          const tagsArray = value.toLowerCase()
+          filterObject.tags = { hasSome: tagsArray.split(",") };
           break;
         case "category":
           filterObject.category = { contains: value };
@@ -62,6 +63,9 @@ export async function GET(
               { discountPercentage: { gt: 0 } },
             ];
           }
+          break;
+        case "allProducts":
+          
           break;
         default:
           break;

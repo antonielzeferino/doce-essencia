@@ -8,8 +8,13 @@ const nextConfig: NextConfig = {
         hostname: "res.cloudinary.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "www.freeiconspng.com",
+        pathname: "/**",
+      },
     ],
-  }
+  },
 };
 
 export default nextConfig;
