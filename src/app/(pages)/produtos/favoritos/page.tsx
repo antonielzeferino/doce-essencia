@@ -121,7 +121,10 @@ const Favoritos = () => {
                 <h5 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
                   {produto.name}
                 </h5>
-                <span className="text-green-700 font-bold">R$ {produto.price.toFixed(2)}</span>
+                <span className="text-green-700 font-bold">R$
+                  {produto.discountPercentage ?
+                  ((produto.price - (produto.price * produto.discountPercentage) / 100).toFixed(2)) : produto.price.toFixed(2)}
+                </span>
               </Link>
             </div>
           ))}
